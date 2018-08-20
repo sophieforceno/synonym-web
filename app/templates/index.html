@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Synonym Search</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="../static/stylesheet.css" media="screen"/>
+    <!-- <link rel="icon" href="../static/img/favicon.png"> -->
+    <link href="https://fonts.googleapis.com/css?family=Gafata|Nunito|Roboto+Slab|Quattrocento+Sans|Ubuntu:300" rel="stylesheet">
+</head>
+<a href="#home"></a>
+<body>
+</p><p><p>
+  <div class="search-wrap">
+  <div class="search-box"><center>
+  <div class="textbox">
+  <form action="{{ url_for('get_words', word=word) }}" method="POST">
+  <input type="text" input class="textbox" name="word" placeholder="Search for synonyms..." autofocus>
+  <input type="submit" id="button" value="Get synonyms"></div></form>
+  </div></div></div></div></p></p>
+  <center>
+<div class="content"><b>{{word}}:</b> 
+<div class="synonyms">
+    {{synonyms}}
+  <p><p></div>
+<p><p></p></p>
+<div class="textbox">
+  Definition: <br></div>
+<div class="synonyms">
+    {{definitions}}
+</p>
+</div>
+<div class="footer">Refresh the page for a random word<br>
+<a href="https://github.com/andyforceno/synonym-web">Synonym-web</a> is brought to you by <a href="https://github.com/andyforceno">Andy Forceno</a> and <a href="https://www.python.org/">Python</a>
+</div>
+

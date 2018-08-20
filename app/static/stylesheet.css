@@ -1,0 +1,200 @@
+body {
+  background: rgb(90,90,90);  
+
+  width: 100%;
+  height: 100%;
+  margin: 0px 0px 0px 0px; 
+}
+
+div.content {
+  font-size: 28px;
+  font-family: 'Nunito', sans-serif;
+  color: white;
+}
+
+div.synonyms {
+  background: rgb(15,135,182);
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 25px;
+  position: relative;
+  width: 70%;
+  height: 50%;
+  margin: 2px;
+  padding: 4px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25), 0 3px 9px 0 rgba(0, 0, 0, 0.25);
+  color: white;
+  align-items: center;
+  border-radius: 8px;
+}
+
+div.search-wrap {
+  background: rgb(15,135,182);
+  position: relative;
+  width: 40%;
+  height: 10%;
+  margin: 8px auto;
+  padding: 8px;
+  float: middle;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25), 0 3px 9px 0 rgba(0, 0, 0, 0.25);
+  color: white;
+}
+
+div.search-box {
+  width: 100%;
+  height: 20%;
+  margin: auto;
+  position: relative;
+  vertical-align: middle;
+  color: #0090ff;
+}
+
+.textbox {
+  width: 100%;
+  height: 15%;
+  margin: auto;
+  position: relative;
+}
+
+input[type=text] {
+    background-position: 4px 4px !important;
+    background-size: 35px 35px;
+    padding: 10px 10px 10px 25px;
+    width: 50%;
+    border: 1px solid rgb(90,90,90);
+    color: white;
+    outline: none;
+    background-color: rgb(90,90,90);
+    font-size: 20px;
+    position: inline-block;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.25), 
+                0 3px 9px 0 rgba(0, 0, 0, 0.25);
+}    
+
+input[type=text]:focus {
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25), 
+              0 8px 18px 0 rgba(0, 0, 0, 0.25); 
+}
+
+#button {
+    background-color: rgb(35, 191, 193);  /* rgb(21, 180, 228); */
+    border: none;
+    color: white;
+    margin: 2px;
+    padding: 8px 12px;
+    text-align: center;
+    font-family: 'Nunito', sans-serif;
+    position: relative;
+    top: 0px;
+    vertical-align: middle;
+    font-size: 22px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25), 
+                0 3px 9px 0 rgba(0, 0, 0, 0.25);
+}
+
+#button:active {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25), 
+                0 1px 2px 0 rgba(0, 0, 0, 0.25);
+    -webkit-transform: scale(0.95);
+        -ms-transform: scale(0.95);
+        transform: scale(0.95);
+ }
+
+#button:hover {
+  background-color: rgb(35, 191, 193, 0.87);
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.25), 
+                0 1px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.footer {
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  position: relative;
+  width: 98%;
+  height: 10%;
+  margin: 20px;
+  margin-top: 200px;
+  padding: 4px;
+  bottom: 0px;
+  color: rgb(130, 130, 130);
+  align-items: center;
+  border-radius: 8px;
+}
+
+a:link {
+  color: rgb(160, 160, 160);
+}
+
+a:visited {
+  color: rgb(130, 130, 130);
+}
+
+a:hover {
+  color: white;
+}
+
+/* Mobile devices */
+@media only screen and (min-device-width : 320px) and (max-device-width : 640px) {
+  div.synonyms {
+    background: rgb(15,135,182);
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 25px;
+    position: relative;
+    width: 90%;
+    height: 50%;
+    margin: 2px;
+    padding: 4px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25), 0 3px 9px 0 rgba(0, 0, 0, 0.25);
+    color: white;
+    align-items: center;
+    border-radius: 8px;
+  }
+
+  div.search-wrap {
+    background: rgb(15,135,182);
+    position: relative;
+    width: 90%;
+    height: 10%;
+    margin: 4px auto;
+    padding: 4px;
+    float: middle;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25), 0 3px 9px 0 rgba(0, 0, 0, 0.25);
+    color: white;
+  }
+
+input[type=text] {
+    background-position: 4px 4px !important;
+    background-size: 35px 35px;
+    padding: 10px 10px 10px 25px;
+    width: 85%;
+    border: 1px solid rgb(90,90,90);
+    color: white;
+    outline: none;
+    background-color: rgb(90,90,90);
+    font-size: 20px;
+    position: inline-block;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.25), 0 3px 9px 0 rgba(0, 0, 0, 0.25);
+}
+
+#button {
+    background-color: rgb(21, 180, 228);
+    border: none;
+    color: white;
+    margin: 2px;
+    padding: 8px 12px;
+    text-align: center;
+    font-family: 'Nunito', sans-serif;
+    position: relative;
+    font-size: 22px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25), 
+                0 3px 9px 0 rgba(0, 0, 0, 0.25);
+  }
+}
