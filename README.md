@@ -23,3 +23,7 @@ Depends on thesaurus (https://github.com/Manwholikespie/thesaurus), PyDictionary
 ## Attribution:
 Words.txt is a concatenation of word lists from: 
 http://www.ashley-bovan.co.uk/words/partsofspeech.html
+
+### Screenshot:
+
+![alt text](https://raw.githubusercontent.com/andyforceno/synonym-web/master/synonym-web.png "Synonym search page")
