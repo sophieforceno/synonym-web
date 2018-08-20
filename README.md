@@ -26,4 +26,4 @@ http://www.ashley-bovan.co.uk/words/partsofspeech.html
 
 ### Screenshot:
 
-![alt text](https://raw.githubusercontent.com/andyforceno/synonym-web/master/synonym-web.png "Synonym search page")
+![alt text](https://raw.githubusercontent.com/andyforceno/synonym-web/master/synonym-web.jpg "Synonym search page")
