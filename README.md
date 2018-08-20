@@ -26,4 +26,7 @@ http://www.ashley-bovan.co.uk/words/partsofspeech.html
 
 ### Screenshot:
 
-![alt text](https://raw.githubusercontent.com/andyforceno/synonym-web/master/synonym-web.jpg "Synonym search page")
+![alt text](https://raw.githubusercontent.com/andyforceno/synonym-web/master/synonym-web.jpg "Synonym-web on the desktop")
+
+![alt text](https://raw.githubusercontent.com/andyforceno/synonym-web/master/mobile.jpg "Synonym-web on an Android phone")
+
