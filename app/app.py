@@ -16,6 +16,7 @@ def index():
     for num, line in enumerate(wordlist):
       if random.randrange(num + 2): continue
       word = line.rstrip("\n")
+    wordlist.close()
 
     words = synonyms.get_synonyms(word)
     defin = dictionary.get_defin(word)

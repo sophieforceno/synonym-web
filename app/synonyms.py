@@ -3,7 +3,7 @@
 from thesaurus import Word
 
 def get_synonyms(word):
-    synonyms = Word(word).synonyms('all', relevance=[1,2])
+    synonyms = Word(word).synonyms('all')
 
     if not synonyms:
         synonyms = "No synonyms found"

@@ -6,6 +6,7 @@ Depends on thesaurus (https://github.com/Manwholikespie/thesaurus), PyDictionary
 ## Installation:
     git clone https://github.com/andyforceno/synonym-web.git
     cd synonym-web/
+    (Setting up a virtual environment is probably a good idea, not covered here)
     pip install -r requirements.txt
     cd app/
     python3 app.py 
