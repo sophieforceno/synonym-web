@@ -27,7 +27,9 @@ http://www.ashley-bovan.co.uk/words/partsofspeech.html
 
 ### Screenshot:
 
+#### Desktop:
 ![alt text](https://raw.githubusercontent.com/andyforceno/synonym-web/master/synonym-web.jpg "Synonym-web on the desktop")
 
+#### Mobile:
 ![alt text](https://raw.githubusercontent.com/andyforceno/synonym-web/master/mobile.jpg "Synonym-web on an Android phone")
 
