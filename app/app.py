@@ -42,4 +42,4 @@ def get_words(word):
 if __name__ == '__main__':
     app.config.update(TEMPLATES_AUTO_RELOAD=True)
     app.config['PREFERRED_URL_SCHEME'] = 'http'
-    app.run(host='0.0.0.0', port=5555, threaded=True) #, debug=True
+    app.run(host='0.0.0.0', port=5000, threaded=True) #, debug=True
