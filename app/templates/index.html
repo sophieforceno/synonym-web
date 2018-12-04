@@ -8,6 +8,7 @@
     <!-- <link rel="icon" href="../static/img/favicon.png"> -->
     <link href="https://fonts.googleapis.com/css?family=Gafata|Nunito|Roboto+Slab|Quattrocento+Sans|Ubuntu:300" rel="stylesheet">
 </head>
+
 <a href="#home"></a>
 <body>
 </p><p><p>
@@ -21,7 +22,27 @@
   <center>
 <div class="content"><b>{{word}}:</b> 
 <div class="synonyms">
-    {{synonyms}}
+  {% if (synonyms is iterable) and (synonyms is not string) %}
+    {% for meanings in synonyms %}
+      <font size="5">
+      {% if (loop.length > 1) %}
+        <!-- Number each list of words with a common meaning -->
+        {% print("(""%s"")" % loop.index) %}
+      {% endif %}
+      </font>
+      {% for w in meanings %}
+      <!-- Don't insert a command if it's last word -->
+        {% if loop.last %}
+         <a href="{{w}}">{{w}}</a>
+        {% elif not loop.last %}
+          <a href="{{w}}">{{w}}</a>,
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+  {% else %}
+    <!-- Otherwise, display Synonyms not found string -->
+    {{ synonyms }}
+  {% endif %}
   <p><p></div>
 <p><p></p></p>
 <div class="textbox">

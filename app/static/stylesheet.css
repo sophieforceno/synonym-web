@@ -20,10 +20,12 @@ div.synonyms {
   width: 70%;
   height: 50%;
   margin: 2px;
-  padding: 8px;
+  padding: 10px;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25), 0 3px 9px 0 rgba(0, 0, 0, 0.25);
   color: white;
-  align-items: center;
+  text-align: justify;
+  -moz-text-align-last: center;
+  text-align-last: center;
   border-radius: 8px;
 }
 
@@ -127,15 +129,15 @@ input[type=text]:focus {
 }
 
 a:link {
-  color: rgb(160, 160, 160);
+  color: rgb(255, 255, 255);
 }
 
 a:visited {
-  color: rgb(130, 130, 130);
+  color: rgb(180, 180, 180);
 }
 
 a:hover {
-  color: white;
+  color: rgb(140, 140, 140);
 }
 
 /* Mobile devices */
@@ -143,7 +145,7 @@ a:hover {
   div.synonyms {
     background: rgb(15,135,182);
     font-family: 'Ubuntu', sans-serif;
-    font-size: 25px;
+    font-size: 22px;
     position: relative;
     width: 90%;
     height: 50%;
@@ -152,6 +154,7 @@ a:hover {
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25), 0 3px 9px 0 rgba(0, 0, 0, 0.25);
     color: white;
     align-items: center;
+    text-align: left;
     border-radius: 8px;
   }
 
