@@ -22,33 +22,41 @@
   <center>
 <div class="content"><b>{{word}}:</b> 
 <div class="synonyms">
-  {% if (synonyms is iterable) and (synonyms is not string) %}
+   {% if (synonyms is iterable) and (synonyms is not string) %}
     {% for meanings in synonyms %}
       <font size="5">
       {% if (loop.length > 1) %}
         <!-- Number each list of words with a common meaning -->
-        {% print("(""%s"")" % loop.index) %}
+        <b>{% print("(""%s"")" % loop.index) %}</b>
       {% endif %}
       </font>
       {% for w in meanings %}
-      <!-- Don't insert a command if it's last word -->
+      <!-- Don't insert a comma if we're at the last word -->
         {% if loop.last %}
-         <a href="{{w}}">{{w}}</a>
+         <a href="../words/{{w}}">{{w}}</a>
         {% elif not loop.last %}
-          <a href="{{w}}">{{w}}</a>,
+          <a href="../words/{{w}}">{{w}}</a>,
         {% endif %}
       {% endfor %}
     {% endfor %}
   {% else %}
     <!-- Otherwise, display Synonyms not found string -->
     {{ synonyms }}
-  {% endif %}
+    {% endif %} 
   <p><p></div>
 <p><p></p></p>
 <div class="textbox">
   Definition: <br></div>
 <div class="synonyms">
-    {{definitions}}
+{% if defin is not string %}
+  {% for parts, defin in definitions.items() %}
+    <b>{{parts}}:</b> 
+    {{defin}}<br><p> 
+    {% endfor %}
+{% else %}
+  {{defin}}
+{% endif %}
+
 </p>
 </div>
 <div class="footer">Refresh the page for a random word<br>
