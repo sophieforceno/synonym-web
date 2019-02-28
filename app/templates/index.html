@@ -5,7 +5,7 @@
     <title>Synonym Search</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="../static/stylesheet.css" media="screen"/>
-    <!-- <link rel="icon" href="../static/img/favicon.png"> -->
+    <link rel="icon" href="favicon.png">
     <link href="https://fonts.googleapis.com/css?family=Gafata|Nunito|Roboto+Slab|Quattrocento+Sans|Ubuntu:300" rel="stylesheet">
 </head>
 
@@ -22,14 +22,14 @@
   <center>
 <div class="content"><b>{{word}}:</b> 
 <div class="synonyms">
+  <!-- This is pretty ugly, but it works --> 
    {% if (synonyms is iterable) and (synonyms is not string) %}
+   <font size="5">
     {% for meanings in synonyms %}
-      <font size="5">
       {% if (loop.length > 1) %}
         <!-- Number each list of words with a common meaning -->
         <b>{% print("(""%s"")" % loop.index) %}</b>
       {% endif %}
-      </font>
       {% for w in meanings %}
       <!-- Don't insert a comma if we're at the last word -->
         {% if loop.last %}
@@ -43,7 +43,7 @@
     <!-- Otherwise, display Synonyms not found string -->
     {{ synonyms }}
     {% endif %} 
-  <p><p></div>
+</font><p><p></div>
 <p><p></p></p>
 <div class="textbox">
   Definition: <br></div>
@@ -59,7 +59,7 @@
 
 </p>
 </div>
-<div class="footer">Refresh the page for a random word<br>
+<div class="footer">Refresh the main page or <a href="../">go back</a> for a random word<br>
 <a href="https://github.com/andyforceno/synonym-web">Synonym-web</a> is brought to you by <a href="https://github.com/andyforceno">Andy Forceno</a> and <a href="https://www.python.org/">Python</a>
 </div>
 
