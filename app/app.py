@@ -66,14 +66,14 @@ def get_words(word):
 
 # For easier web development
 # Send no-cache headers to browser
-# @app.after_request
-# def set_response_headers(response):
-#    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
-#    response.headers['Pragma'] = 'no-cache'
-#    response.headers['Expires'] = '0'
-#    return response
+@app.after_request
+def set_response_headers(response):
+    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    return response
 
 if __name__ == '__main__':
     app.config.update(TEMPLATES_AUTO_RELOAD=True)
     app.config['PREFERRED_URL_SCHEME'] = 'http'
-    app.run(host='0.0.0.0', port=5000, threaded=True)  # , debug=True
+    app.run(host='localhost', port=5000, threaded=True, debug=True)  

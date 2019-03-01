@@ -22,6 +22,7 @@
   <center>
 <div class="content"><b>{{word}}:</b> 
 <div class="synonyms">
+<div class="text-wrap">
   <!-- This is pretty ugly, but it works --> 
    {% if (synonyms is iterable) and (synonyms is not string) %}
    <font size="5">
@@ -43,22 +44,20 @@
     <!-- Otherwise, display Synonyms not found string -->
     {{ synonyms }}
     {% endif %} 
-</font><p><p></div>
+</font><p><p></div></div>
 <p><p></p></p>
 <div class="textbox">
   Definition: <br></div>
 <div class="synonyms">
-{% if defin is not string %}
+  <div class="text-wrap">
+{% if definitions is not string %}
   {% for parts, defin in definitions.items() %}
-    <b>{{parts}}:</b> 
-    {{defin}}<br><p> 
+    <b>{{parts}}:</b>{{defin}}<br><p> 
     {% endfor %}
 {% else %}
-  {{defin}}
+    {{definitions}}
 {% endif %}
-
-</p>
-</div>
+</div></p></div>
 <div class="footer">Refresh the main page or <a href="../">go back</a> for a random word<br>
 <a href="https://github.com/andyforceno/synonym-web">Synonym-web</a> is brought to you by <a href="https://github.com/andyforceno">Andy Forceno</a> and <a href="https://www.python.org/">Python</a>
 </div>
