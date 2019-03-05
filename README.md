@@ -26,7 +26,7 @@ Depends on thesaurus (https://github.com/Manwholikespie/thesaurus), PyDictionary
 ![alt text](https://raw.githubusercontent.com/andyforceno/synonym-web/master/synonym-web.jpg "Synonym-web on the desktop")
 
 ### Mobile:
-![alt text](https://raw.githubusercontent.com/andyforceno/synonym-web/master/mobile.jpg "Synonym-web on an Android phone")
+<img src="https://raw.githubusercontent.com/andyforceno/synonym-web/master/mobile.jpg" title="Syonynm-web on a mobile phone" height="600" width="387"></img>
 
 ## Attribution:
 Words.txt is a concatenation of word lists from: 
