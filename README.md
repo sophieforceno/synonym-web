@@ -2,7 +2,7 @@
 Self-hosted web-based thesaurus and dictionary written in Python 3.4.3. I write fiction in my free time. 
 I wanted an easy to access and ad-free thesaurus, and so synonym-web was born.
 
-Depends on thesaurus (https://github.com/Manwholikespie/thesaurus), PyDictionary, and flask
+Depends on thesaurus (https://github.com/Manwholikespie/thesaurus), PyDictionary, flask, and CherryPy (see requirements.txt)
 
 ## Installation:
     git clone https://github.com/andyforceno/synonym-web.git
