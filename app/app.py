@@ -9,7 +9,7 @@ import requests
 import dictionary
 
 # dictionaryapi.com api key for thesaurus
-apikey = "dba020ec-28cf-44cc-b5f0-b93f1bfcd6f9"
+apikey = "INSEERT API KEY HERE"
 
 # Fix to allow subfolder locations on the reverse proxy
 class ReverseProxied(object):
