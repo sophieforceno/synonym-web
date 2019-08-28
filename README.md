@@ -1,8 +1,10 @@
 # Synonym-web
 Self-hosted web-based thesaurus and dictionary written in Python 3.4.3. I write fiction in my free time. 
-I wanted an easy to access and ad-free thesaurus, and so synonym-web was born.
+I wanted an easy-to-access and ad-free thesaurus, and so synonym-web was born.
 
 Depends on thesaurus (https://github.com/Manwholikespie/thesaurus), PyDictionary, flask, and CherryPy (see requirements.txt)
+
+Update: I will be adding spellchecking for search queries using https://github.com/barrust/pyspellchecker as my biggest issue in my personal use has been misspelling, and then having to search the web for the correct spelling, and then enter that into synonym-web.
 
 ## Installation:
     git clone https://github.com/andyforceno/synonym-web.git
