@@ -1,4 +1,6 @@
-thesaurus==0.2.2
-Flask>=0.12.3
-CherryPy>=13.1.0
+Flask==1.0.3
+pyspellchecker==0.4.0
 PyDictionary==1.5.2
+cherrypy==18.1.2
+Requests==2.22.0
+spellchecker==0.4

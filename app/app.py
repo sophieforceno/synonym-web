@@ -2,16 +2,16 @@
 
 from flask import Flask, render_template
 from flask import request
+from PyDictionary import PyDictionary
 from spellchecker import SpellChecker
 import json
 import random
 import requests
-import dictionary
 
 # dictionaryapi.com api key for thesaurus
 apikey = "dba020ec-28cf-44cc-b5f0-b93f1bfcd6f9"
 
-# Fix to allow subfolder locations on the reverse proxy
+# Fix to allow subfolder locations on the reverse proxyfound
 class ReverseProxied(object):
     def __init__(self, app):
         self.app = app
@@ -29,17 +29,21 @@ class ReverseProxied(object):
             environ['wsgi.url_scheme'] = scheme
         return self.app(environ, start_response)
 
+
 app = Flask(__name__)
-app.wsgi_app = ReverseProxied(app.wsgi_app)
+# Note: Uncomment this if you are using a reverse proxy with a subfolder
+#app.wsgi_app = ReverseProxied(app.wsgi_app)
+dictionary = PyDictionary()
+
 
 # NOTE: This should be it's own class probably 
-
 def checkspelling(word):
     spell = SpellChecker()
     misspelled = spell.unknown([word])
 
     for w in misspelled:
         return spell.candidates(w)
+
 
 def findkeys(node, kv):
     if isinstance(node, list):
@@ -53,6 +57,15 @@ def findkeys(node, kv):
             for x in findkeys(j, kv):
                 yield x
 
+
+def get_defin(word):
+    defin = dictionary.meaning(word)
+
+    if not defin:
+        defin = "No definitions found"
+    return defin
+
+
 def get_synonyms(word):
     url = "https://www.dictionaryapi.com/api/v3/references/thesaurus/json/%s?key=%s" % (word, apikey)
     response = requests.get(url).text
@@ -61,7 +74,12 @@ def get_synonyms(word):
     # Iterate and recurse your way to a list of synonym lists!
     synlists = [s for g in syns for s in g ]
 
-    return synlists
+    if synlists:
+        return synlists
+    else:
+        synlists = "No synonyms found"
+        return synlists
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -78,7 +96,7 @@ def index():
     wordlist.close()
 
     words = get_synonyms(word)
-    defin = dictionary.get_defin(word)
+    defin = get_defin(word)
 
     return render_template(
         'index.html', word=word, synonyms=words, definitions=defin)
@@ -92,8 +110,9 @@ def get_words(word):
         word = word
 
     words = get_synonyms(word)
-    defin = dictionary.get_defin(word)
+    defin = get_defin(word)
     checkword = checkspelling(word)
+    print(checkword)
 
     return render_template(
         'index.html', word=word, synonyms=words, definitions=defin, spellcheck=checkword)
@@ -112,5 +131,5 @@ if __name__ == '__main__':
     app.config.update(TEMPLATES_AUTO_RELOAD=False)
     #app.config.update(TEMPLATES_AUTO_RELOAD=True)
     app.config['PREFERRED_URL_SCHEME'] = 'http'
-    #app.run(host='localhost', port=5000, threaded=True, debug=True)  
+    #app.run(host='0.0.0.0', port=5000, threaded=True, debug=True)  
     app.run(host='localhost', port=5000, threaded=True, debug=False)
