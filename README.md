@@ -17,11 +17,11 @@ Requires an API key from dictionaryapi.com
     pip install -r requirements.txt
     cd app/ 
 	python3 wsgi.py
-    Browse to http://localhost:5555
+    Browse to http://localhost:5000
 
 ## Nginx Configuration:
     location / {
-		proxy_pass         http://localhost:5555;
+		proxy_pass         http://localhost:5000;
 		proxy_redirect     off;
 		proxy_set_header   X-Real-IP $remote_addr;
 		proxy_set_header   X-Forwarded-Host $server_name;
