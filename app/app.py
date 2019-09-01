@@ -1,18 +1,20 @@
 #! /usr/bin/python3
 
-from flask import Flask, render_template
-from flask import request
-from PyDictionary import PyDictionary
+from flask import Flask, render_template, request
+from collections import Iterable
 from spellchecker import SpellChecker
 import json
 import random
 import requests
 
-# dictionaryapi.com api key for thesaurus
-apikey = "INSERT API KEY"
+# API key for dictionaryapi.com thesaurus
+syn_key = "dba020ec-28cf-44cc-b5f0-b93f1bfcd6f9"
+# API key for dictionaryapi.com dictionary
+dict_key = "31e86373-e2c2-4d6b-b5e1-045d3ff9179a"
 
-# Fix to allow subfolder locations on the reverse proxyfound
+
 class ReverseProxied(object):
+    ''' Fix to allow subfolder locations on the reverse proxy '''
     def __init__(self, app):
         self.app = app
 
@@ -31,12 +33,9 @@ class ReverseProxied(object):
 
 
 app = Flask(__name__)
-# Note: Uncomment this if you are using a reverse proxy with a subfolder
+''' Uncomment this if you are using a reverse proxy with a subfolder '''
 #app.wsgi_app = ReverseProxied(app.wsgi_app)
-dictionary = PyDictionary()
 
-
-# NOTE: This should be it's own class probably 
 def checkspelling(word):
     spell = SpellChecker()
     misspelled = spell.unknown([word])
@@ -45,29 +44,48 @@ def checkspelling(word):
         return spell.candidates(w)
 
 
-def findkeys(node, kv):
+def flatten(lists):
+    for item in lists:
+        if isinstance(item, Iterable) and not isinstance(item, str):
+            for x in flatten(item):
+                yield x
+        else:
+            yield item
+
+
+def findkeys(node, keyval):
     if isinstance(node, list):
         for i in node:
-            for x in findkeys(i, kv):
+            for x in findkeys(i, keyval):
                yield x
     elif isinstance(node, dict):
-        if kv in node:
-            yield node[kv]
+        if keyval in node:
+            yield node[keyval]
         for j in node.values():
-            for x in findkeys(j, kv):
+            for x in findkeys(j, keyval):
                 yield x
 
 
 def get_defin(word):
-    defin = dictionary.meaning(word)
+    url = "https://dictionaryapi.com/api/v3/references/collegiate/json/%s?key=%s" % (word, dict_key)
 
-    if not defin:
-        defin = "No definitions found"
-    return defin
+    response = requests.get(url).text
+    json_data = json.loads(response)
+    defs = list(flatten(findkeys(json_data, 'shortdef')))
+    speechparts = list(findkeys(json_data, 'fl'))
+    combined = [val for pair in zip(speechparts, defs) for val in pair]
+    i = iter(combined)
+    combined = dict(zip(i, i))
+
+    if combined:
+        return combined
+    else:
+        combined = "No synonyms found"
+        return combined
 
 
 def get_synonyms(word):
-    url = "https://www.dictionaryapi.com/api/v3/references/thesaurus/json/%s?key=%s" % (word, apikey)
+    url = "https://www.dictionaryapi.com/api/v3/references/thesaurus/json/%s?key=%s" % (word, syn_key)
     response = requests.get(url).text
     json_data = json.loads(response)
     syns = list(findkeys(json_data, 'syns'))
@@ -106,13 +124,10 @@ def index():
 def get_words(word):
     if request.method == 'POST':
         word = request.form['word']
-    elif request.method == 'GET':
-        word = word
 
     words = get_synonyms(word)
     defin = get_defin(word)
     checkword = checkspelling(word)
-    print(checkword)
 
     return render_template(
         'index.html', word=word, synonyms=words, definitions=defin, spellcheck=checkword)
@@ -131,5 +146,5 @@ if __name__ == '__main__':
     app.config.update(TEMPLATES_AUTO_RELOAD=False)
     #app.config.update(TEMPLATES_AUTO_RELOAD=True)
     app.config['PREFERRED_URL_SCHEME'] = 'http'
-    #app.run(host='0.0.0.0', port=5000, threaded=True, debug=True)  
-    app.run(host='localhost', port=5000, threaded=True, debug=False)
+    #app.run(host='localhost', port=5000, threaded=True, debug=True)
+    app.run(host='0.0.0.0', port=5000, threaded=True, debug=False)
