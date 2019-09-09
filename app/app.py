@@ -8,9 +8,9 @@ import random
 import requests
 
 # API key for dictionaryapi.com thesaurus
-syn_key = "dba020ec-28cf-44cc-b5f0-b93f1bfcd6f9"
+syn_key = "INSERT API KEY"
 # API key for dictionaryapi.com dictionary
-dict_key = "31e86373-e2c2-4d6b-b5e1-045d3ff9179a"
+dict_key = "INSERT API KEY"
 
 
 class ReverseProxied(object):
