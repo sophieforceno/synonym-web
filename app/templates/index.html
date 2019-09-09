@@ -43,14 +43,14 @@
     <!-- If spellcheck is non-null, the user misspelled the search query -->
   {% elif spellcheck and (spellcheck != word) %}
         Did you mean 
+        <!-- If the list has > 1 element, and we're on the last element, no "," but add a "or" and "?" -->
+        <!-- Or if it has just one element, no "," and add a "?" (no "or") -->
+        <!-- If not the last element in loop, add "," to end -->
         {% for s in spellcheck %}
-          <!-- If the list has > 1 element, and we're on the last element, no "," but add a "or" and "?" -->
           {% if (loop.last) and (loop.length > 1) %}
             or <a href="../words/{{s}}">{{ s }}</a>?
-          <!-- Or if it has just one element, no "," and add a "?" (no "or") -->
           {% elif (loop.length == 1) %}
                <a href="../words/{{s}}">{{ s }}</a>?
-          <!-- If not the last element in loop, add "," to end -->
           {% elif not loop.last %}
             <a href="../words/{{s}}">{{ s }}</a>,
           {% endif %}
@@ -72,6 +72,13 @@
 {% else %}
     {{definitions}}
 {% endif %}
+</div></div>
+<p>
+<div class="textbox">
+  Etymology: <br></div>
+<div class="etymology">
+  <div class="text-wrap">
+    {{ etymology|safe }}
 </div></div>
 <div class="footer">Refresh the main page or <a href="../">go back</a> for a random word<br>
 <a href="https://github.com/andyforceno/synonym-web">Synonym-web</a> is brought to you by <a href="https://github.com/andyforceno">Andy Forceno</a> and <a href="https://www.python.org/">Python</a>

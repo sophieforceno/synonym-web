@@ -8,9 +8,9 @@ import random
 import requests
 
 # API key for dictionaryapi.com thesaurus
-syn_key = "< INSERT API KEY HERE >"
+syn_key = "dba020ec-28cf-44cc-b5f0-b93f1bfcd6f9"
 # API key for dictionaryapi.com dictionary
-dict_key = "< INSERT API KEY HERE >"
+dict_key = "31e86373-e2c2-4d6b-b5e1-045d3ff9179a"
 
 
 class ReverseProxied(object):
@@ -68,28 +68,35 @@ def findkeys(node, keyval):
 
 def get_defin(word):
     url = "https://dictionaryapi.com/api/v3/references/collegiate/json/%s?key=%s" % (word, dict_key)
-
     response = requests.get(url).text
     json_data = json.loads(response)
+
     defs = list(flatten(findkeys(json_data, 'shortdef')))
-    speechparts = list(findkeys(json_data, 'fl'))
+    speechparts = list(findkeys(json_data, 'fl'))    
     combined = [val for pair in zip(speechparts, defs) for val in pair]
     i = iter(combined)
     combined = dict(zip(i, i))
 
+    try:
+        etymology = list(flatten(findkeys(json_data, 'et')))[1]
+        etymology = etymology.replace('{it}', '<i>').replace('{/it}', '</i>')
+    except: 
+        etymology = "No etymology"
+
     if combined:
-        return combined
+        return (combined, etymology)
     else:
-        combined = "No synonyms found"
-        return combined
+        combined = "No definitions found"
+        return (combined, etymology)
 
-
+''' TODO: Synlists should be returned formatted
+          instead of being formatted in the template  '''
 def get_synonyms(word):
     url = "https://www.dictionaryapi.com/api/v3/references/thesaurus/json/%s?key=%s" % (word, syn_key)
     response = requests.get(url).text
     json_data = json.loads(response)
     syns = list(findkeys(json_data, 'syns'))
-    # Iterate and recurse your way to a list of synonym lists!
+    
     synlists = [s for g in syns for s in g ]
 
     if synlists:
@@ -114,10 +121,10 @@ def index():
     wordlist.close()
 
     words = get_synonyms(word)
-    defin = get_defin(word)
+    defin, etym = get_defin(word)
 
     return render_template(
-        'index.html', word=word, synonyms=words, definitions=defin)
+        'index.html', word=word, synonyms=words, definitions=defin, etymology=etym)
 
 
 @app.route('/words/<word>', methods=['GET', 'POST'])
@@ -126,25 +133,34 @@ def get_words(word):
         word = request.form['word']
 
     words = get_synonyms(word)
-    defin = get_defin(word)
+    defin, etym = get_defin(word)
     checkword = checkspelling(word)
 
     return render_template(
-        'index.html', word=word, synonyms=words, definitions=defin, spellcheck=checkword)
+        'index.html', word=word, synonyms=words, definitions=defin, etymology=etym, spellcheck=checkword)
 
 
-# For easier web development
-# Send no-cache headers to browser
-#@app.after_request
-#def set_response_headers(response):
-#    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
-#    response.headers['Pragma'] = 'no-cache'
-#    response.headers['Expires'] = '0'
-#    return response
+''' Sends no-cache headers to browser, for easier web development '''
+@app.after_request
+def set_response_headers(response):
+    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    return response
+
+''' Allows printing of debug msgs from jinga2 templates '''
+#@app.context_processor
+#def utility_functions():
+#    def print_in_console(message):
+#        print(str(message))
+
+#    return dict(mdebug=print_in_console)
+
+
 
 if __name__ == '__main__':
-    app.config.update(TEMPLATES_AUTO_RELOAD=False)
-    #app.config.update(TEMPLATES_AUTO_RELOAD=True)
+    #app.config.update(TEMPLATES_AUTO_RELOAD=False)
+    app.config.update(TEMPLATES_AUTO_RELOAD=True)
     app.config['PREFERRED_URL_SCHEME'] = 'http'
-    #app.run(host='localhost', port=5000, threaded=True, debug=True)
-    app.run(host='0.0.0.0', port=5000, threaded=True, debug=False)
+    app.run(host='0.0.0.0', port=5000, threaded=True, debug=True)
+    #app.run(host='0.0.0.0', port=5000, threaded=True, debug=False)
