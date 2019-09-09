@@ -10,7 +10,7 @@ import requests
 # API key for dictionaryapi.com thesaurus
 syn_key = "INSERT API KEY"
 # API key for dictionaryapi.com dictionary
-dict_key = "INSERT API KEY"
+dict_key = "INSERT API KEYa"
 
 
 class ReverseProxied(object):
@@ -36,12 +36,9 @@ app = Flask(__name__)
 ''' Uncomment this if you are using a reverse proxy with a subfolder '''
 #app.wsgi_app = ReverseProxied(app.wsgi_app)
 
-def checkspelling(word):
-    spell = SpellChecker()
-    misspelled = spell.unknown([word])
-
-    for w in misspelled:
-        return spell.candidates(w)
+def multireplace(dict, text):
+  regex = re.compile("|".join(map(re.escape, dict.keys())))
+  return regex.sub(lambda mo: dict[mo.group(0)], text)
 
 
 def flatten(lists):
@@ -72,15 +69,16 @@ def get_defin(word):
     json_data = json.loads(response)
 
     defs = list(flatten(findkeys(json_data, 'shortdef')))
-    speechparts = list(findkeys(json_data, 'fl'))    
+    speechparts = list(findkeys(json_data, 'fl'))
     combined = [val for pair in zip(speechparts, defs) for val in pair]
     i = iter(combined)
     combined = dict(zip(i, i))
 
     try:
         etymology = list(flatten(findkeys(json_data, 'et')))[1]
-        etymology = etymology.replace('{it}', '<i>').replace('{/it}', '</i>')
-    except: 
+        etymology = etymology.replace('{it}', '<i>').replace('{/it}', '</i>'
+            ).replace('{ma}', '').replace('{/ma}', '')
+    except:
         etymology = "No etymology"
 
     if combined:
@@ -89,14 +87,13 @@ def get_defin(word):
         combined = "No definitions found"
         return (combined, etymology)
 
-''' TODO: Synlists should be returned formatted
-          instead of being formatted in the template  '''
+
 def get_synonyms(word):
     url = "https://www.dictionaryapi.com/api/v3/references/thesaurus/json/%s?key=%s" % (word, syn_key)
     response = requests.get(url).text
     json_data = json.loads(response)
     syns = list(findkeys(json_data, 'syns'))
-    
+
     synlists = [s for g in syns for s in g ]
 
     if synlists:
@@ -104,6 +101,15 @@ def get_synonyms(word):
     else:
         synlists = "No synonyms found"
         return synlists
+
+
+def checkspelling(word):
+    word = "huse"
+    spell = SpellChecker()
+    misspelled = spell.unknown([word])
+
+    for w in misspelled:
+        return list(spell.candidates(w))
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -141,12 +147,12 @@ def get_words(word):
 
 
 ''' Sends no-cache headers to browser, for easier web development '''
-@app.after_request
-def set_response_headers(response):
-    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
-    response.headers['Pragma'] = 'no-cache'
-    response.headers['Expires'] = '0'
-    return response
+#@app.after_request
+#def set_response_headers(response):
+#    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+#    response.headers['Pragma'] = 'no-cache'
+#    response.headers['Expires'] = '0'
+#    return response
 
 ''' Allows printing of debug msgs from jinga2 templates '''
 #@app.context_processor

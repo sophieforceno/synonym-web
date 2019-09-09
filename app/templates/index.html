@@ -26,13 +26,13 @@
   <!-- This is pretty ugly, but it works --> 
    {% if (synonyms is iterable) and (synonyms is not string) %}
    <font size="5">
+    <!-- Number each list of words with a common meaning -->
+    <!-- Don't insert a comma if we're at the last word -->
     {% for meanings in synonyms %}
       {% if (loop.length > 1) %}
-        <!-- Number each list of words with a common meaning -->
         <b>{% print("(""%s"")" % loop.index) %}</b>
       {% endif %}
       {% for w in meanings %}
-      <!-- Don't insert a comma if we're at the last word -->
         {% if loop.last %}
          <a href="../words/{{w}}">{{w}}</a>
         {% elif not loop.last %}
@@ -44,7 +44,7 @@
   {% elif spellcheck and (spellcheck != word) %}
         Did you mean 
         <!-- If the list has > 1 element, and we're on the last element, no "," but add a "or" and "?" -->
-        <!-- Or if it has just one element, no "," and add a "?" (no "or") -->
+        <!-- Or if it has just one element, no "," and add a "?" -->
         <!-- If not the last element in loop, add "," to end -->
         {% for s in spellcheck %}
           {% if (loop.last) and (loop.length > 1) %}
@@ -63,7 +63,7 @@
 <p><p></p></p>
 <div class="textbox">
   Definition: <br></div>
-<div class="synonyms">
+<div class="definitions">
   <div class="text-wrap">
 {% if definitions is not string %}
   {% for parts, defin in definitions.items() %}
