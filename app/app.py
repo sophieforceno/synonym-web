@@ -161,12 +161,12 @@ def get_words(word):
 
 
 ''' Sends no-cache headers to browser, for easier web development '''
-@app.after_request
-def set_response_headers(response):
-    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
-    response.headers['Pragma'] = 'no-cache'
-    response.headers['Expires'] = '0'
-    return response
+#@app.after_request
+#def set_response_headers(response):
+#    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+#    response.headers['Pragma'] = 'no-cache'
+#    response.headers['Expires'] = '0'
+#    return response
 
 ''' Allows printing of debug msgs from jinga2 templates '''
 #@app.context_processor
