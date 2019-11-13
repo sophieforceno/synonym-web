@@ -2,7 +2,7 @@
 Self-hosted web-based thesaurus and dictionary written in Python 3. I write fiction in my free time.
 I wanted an easy-to-access, and ad-free, thesaurus, and so synonym-web was born. 
 
-With Synonym-web you can: query for words in your browser, get definitions and synonyms,
+With Synonym-web you can: query for words in your browser, get synonyms, rhymes, defintions, etymology
 click on synonyms to see synonyms of those words, and offers spelling suggestions for mispelled words
 
 Depends on pyspellchecker (https://github.com/barrust/pyspellchecker), Flask, Requests, and CherryPy (see requirements.txt)

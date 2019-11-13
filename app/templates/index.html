@@ -62,6 +62,24 @@
 </font><p><p></div></div>
 <p><p></p></p>
 <div class="textbox">
+  Rhymes:
+<div class="rhymes">
+  <div class="text-wrap">
+    {% if (rhymes is iterable) and (rhymes is not string) %}
+   <font size="5">
+    {% for w in rhymes %}
+        {% if loop.last %}
+         <a href="../words/{{w}}">{{w}}</a>
+        {% elif not loop.last %}
+          <a href="../words/{{w}}">{{w}}</a>,
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      {{ rhymes }}
+    {% endif %}
+</div></div></div>
+<p><p></p></p>
+<div class="textbox">
   Definition: <br></div>
 <div class="definitions">
   <div class="text-wrap">
@@ -73,7 +91,7 @@
     {{definitions}}
 {% endif %}
 </div></div>
-<p>
+<p></p>
 <div class="textbox">
   Etymology: <br></div>
 <div class="etymology">

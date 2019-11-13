@@ -8,9 +8,9 @@ import random
 import requests
 
 # API key for dictionaryapi.com thesaurus
-syn_key = "INSERT API KEY"
+syn_key = "dba020ec-28cf-44cc-b5f0-b93f1bfcd6f9"
 # API key for dictionaryapi.com dictionary
-dict_key = "INSERT API KEYa"
+dict_key = "31e86373-e2c2-4d6b-b5e1-045d3ff9179a"
 
 
 class ReverseProxied(object):
@@ -76,8 +76,7 @@ def get_defin(word):
 
     try:
         etymology = list(flatten(findkeys(json_data, 'et')))[1]
-        etymology = etymology.replace('{it}', '<i>').replace('{/it}', '</i>'
-            ).replace('{ma}', '').replace('{/ma}', '')
+        etymology = etymology.replace('{it}', '<i>').replace('{/it}', '</i>').replace('{ma}', '').replace('{/ma}', '')
     except:
         etymology = "No etymology"
 
@@ -104,12 +103,25 @@ def get_synonyms(word):
 
 
 def checkspelling(word):
-    word = "huse"
+    #word = "huse"
     spell = SpellChecker()
     misspelled = spell.unknown([word])
 
     for w in misspelled:
         return list(spell.candidates(w))
+
+
+def get_rhymes(word):
+    url = "https://api.datamuse.com/words?rel_rhy=%s" % word
+    response = requests.get(url).text
+    json_data = json.loads(response)
+    rhymes = list(findkeys(json_data, 'word'))
+
+    if rhymes:
+        return rhymes
+    else:
+        rhymes = "No rhymes found"
+        return rhymes
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -128,9 +140,10 @@ def index():
 
     words = get_synonyms(word)
     defin, etym = get_defin(word)
+    rhymes = get_rhymes(word)
 
     return render_template(
-        'index.html', word=word, synonyms=words, definitions=defin, etymology=etym)
+        'index.html', word=word, synonyms=words, definitions=defin, etymology=etym, rhymes=rhymes)
 
 
 @app.route('/words/<word>', methods=['GET', 'POST'])
@@ -140,19 +153,20 @@ def get_words(word):
 
     words = get_synonyms(word)
     defin, etym = get_defin(word)
+    rhymes = get_rhymes(word)
     checkword = checkspelling(word)
 
     return render_template(
-        'index.html', word=word, synonyms=words, definitions=defin, etymology=etym, spellcheck=checkword)
+        'index.html', word=word, synonyms=words, definitions=defin, etymology=etym, spellcheck=checkword, rhymes=rhymes)
 
 
 ''' Sends no-cache headers to browser, for easier web development '''
-#@app.after_request
-#def set_response_headers(response):
-#    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
-#    response.headers['Pragma'] = 'no-cache'
-#    response.headers['Expires'] = '0'
-#    return response
+@app.after_request
+def set_response_headers(response):
+    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    return response
 
 ''' Allows printing of debug msgs from jinga2 templates '''
 #@app.context_processor
@@ -165,8 +179,9 @@ def get_words(word):
 
 
 if __name__ == '__main__':
-    app.config.update(TEMPLATES_AUTO_RELOAD=False)
-    #app.config.update(TEMPLATES_AUTO_RELOAD=True)
+    #app.config.update(TEMPLATES_AUTO_RELOAD=False)
+    app.config.update(TEMPLATES_AUTO_RELOAD=True)
     app.config['PREFERRED_URL_SCHEME'] = 'http'
-    #app.run(host='0.0.0.0', port=5000, threaded=True, debug=True)
-    app.run(host='0.0.0.0', port=5000, threaded=True, debug=False)
+    app.run(host='0.0.0.0', port=5000, threaded=True, debug=True)
+    #app.run(host='0.0.0.0', port=5000, threaded=True, debug=False)
+    get_rhymes(word)
