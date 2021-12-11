@@ -12,7 +12,7 @@ Requires free API keys from dictionaryapi.com (https://www.dictionaryapi.com) fo
 ## Installation:
 	Sign up for API keys at dictionaryapi.com 
 	Insert API keys in the `_key` variables in app.py
-    git clone https://github.com/andyforceno/synonym-web.git
+    git clone https://github.com/sophieforceno/synonym-web.git
     cd synonym-web/
     (Setting up a virtual environment is a good idea, but not covered here)
     pip install -r requirements.txt
@@ -34,10 +34,10 @@ Requires free API keys from dictionaryapi.com (https://www.dictionaryapi.com) fo
 			}
 
 ### Desktop:
-![alt text](https://raw.githubusercontent.com/andyforceno/synonym-web/master/synonymweb-ui-desktop.png "Synonym-web on the desktop")
+![alt text](https://raw.githubusercontent.com/sophieforceno/synonym-web/master/synonymweb-ui-desktop.png "Synonym-web on the desktop")
 
 ### Mobile:
-<img src="https://raw.githubusercontent.com/andyforceno/synonym-web/master/synonymweb-ui-mobile.jpg" title="Syonynm-web on a mobile phone" height="600" width="387"></img>
+<img src="https://raw.githubusercontent.com/sophieforceno/synonym-web/master/synonymweb-ui-mobile.jpg" title="Syonynm-web on a mobile phone" height="600" width="387"></img>
 
 ## Attribution:
 Words.txt is a concatenation of word lists from: 
