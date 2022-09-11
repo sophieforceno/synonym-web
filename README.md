@@ -11,14 +11,14 @@ Requires free API keys from dictionaryapi.com (https://www.dictionaryapi.com) fo
 
 ## Installation:
 	Sign up for API keys at dictionaryapi.com 
-	Insert API keys in the `_key` variables in app.py
-    git clone https://github.com/sophieforceno/synonym-web.git
-    cd synonym-web/
-    (Setting up a virtual environment is a good idea, but not covered here)
-    pip install -r requirements.txt
-    cd app/ 
+	git clone https://github.com/sophieforceno/synonym-web.git
+    	cd synonym-web/
+	Insert API keys in the `_key` variables in app.py	
+	(Setting up a virtual environment is a good idea, but not covered here)
+    	pip install -r requirements.txt
+    	cd app/ 
 	python3 wsgi.py
-    Browse to http://localhost:5000
+    	Browse to http://localhost:5000
 
 ## Nginx Configuration:
     location / {
