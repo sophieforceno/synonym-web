@@ -1,4 +1,7 @@
 # Synonym-web
+
+NOTE: I am no longer maintaining this. I am running it in production with the module versions in the latest requirements.txt and it works great, but I have not tested newer module versions (particularly Flask, which is up to 2.3.x, at least) and I do not plan to. If you are successfully running this with newer module versions than in requirements.txt, I will update the requirements file if requested. 
+
 Self-hosted web-based thesaurus and dictionary written in Python 3. I write fiction in my free time.
 I wanted an easy-to-access, and ad-free, thesaurus, and so synonym-web was born. 
 
